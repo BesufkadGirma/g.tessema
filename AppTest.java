@@ -17,9 +17,11 @@ public class AppTest {
             throw new RuntimeException(e);
         }
     }
-
+    @Test
     void testUser(){
-        //here we are checking if the user
+        //here we are checking if the user is empty
+        setup();
+        assert userArray.isEmpty(): "User doesn't have any user data recorded yet.";
     }
 
     void testId() {
