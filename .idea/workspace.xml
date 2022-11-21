@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4065bd32-6c2d-4d04-a97d-455397d05fd6" name="Changes" comment="" />
+    <list default="true" id="4065bd32-6c2d-4d04-a97d-455397d05fd6" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AppTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/AppTest.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -52,7 +55,7 @@
       <recent name="C:\Users\BesuG\IdeaProjects\g.tessema" />
     </key>
   </component>
-  <component name="RunManager" selected="TestNG.AppTest.eightComponents">
+  <component name="RunManager" selected="TestNG.Run as Selenium">
     <configuration name="AppTest.chromeSession" type="TestNG" temporary="true" nameIsGenerated="true">
       <module name="g.tessema" />
       <option name="PACKAGE_NAME" value="" />
@@ -119,9 +122,9 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="TestNG.Run as Selenium" />
         <item itemvalue="TestNG.AppTest.eightComponents" />
         <item itemvalue="TestNG.AppTest.chromeSession" />
-        <item itemvalue="TestNG.Run as Selenium" />
         <item itemvalue="TestNG.AppTest.testName" />
       </list>
     </recent_temporary>
