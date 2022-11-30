@@ -25,4 +25,18 @@ public class HomePage extends BasePage{
     public void browseMainPage(String url) {
         browser.get(url);
     }
+
+    public void setSearchKeyWord(String keyword) {
+
+        WebElement searchBox = browser.findElement(By.id("store_nav_search_term"));
+        wait.until(ExpectedConditions.elementToBeClickable(searchBox));
+        searchBox.sendKeys(keyword);
+
+    }
+
+    public void clickOnSearchButton() {
+        WebElement searchButton = browser.findElement(By.id("store_search_link"));
+        wait.until(ExpectedConditions.elementToBeClickable(searchButton));
+        searchButton.submit();
+    }
 }
