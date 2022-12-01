@@ -10,12 +10,13 @@ import pages.HomePage;
 import pages.SearchPage;
 
 import java.time.Duration;
+import java.util.List;
 
 @Test
 public class GameSearchTest {
 
     public void gameSearchTest() {
-        // initialisation
+        // initialisation and Icognito Mode
 
         DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
         desiredCapabilities.setBrowserName("Chrome");
@@ -23,7 +24,7 @@ public class GameSearchTest {
         options.addArguments("--incognito");
         desiredCapabilities.setCapability(ChromeOptions.CAPABILITY, options);
 
-        WebDriver browser = new ChromeDriver();
+        WebDriver browser = new ChromeDriver(options);
         WebDriverWait wait = new WebDriverWait(browser, Duration.ofMillis(1000));
 
         browser.manage().window().maximize();
@@ -44,8 +45,15 @@ public class GameSearchTest {
         SearchPage searchPage = new SearchPage(browser);
         String result = searchPage.getSearchResult();
         Assert.assertEquals(result, keyword, "The text on the search bar is not the same with the given keyword");
-        //searchPage.getName();
-        //searchPage.getPlatforms();
+        String title = searchPage.getName();
+        System.out.println(title);
+
+        String[] platforms = searchPage.getPlatforms().split(" ");
+
+        for(String platform : platforms) {
+            System.out.println(platform);
+        }
+
         //searchPage.getReleaseDate();
         //searchPage.getSummaryResult();
         //searchPage.getprice();

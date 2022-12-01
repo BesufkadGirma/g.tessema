@@ -1,6 +1,8 @@
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 import pages.HomePage;
@@ -13,8 +15,15 @@ public class PrivacyPolicyTest {
     @Test
     public void PrivacyPolicyTest() {
 
-        // initialisation
-        WebDriver browser = new ChromeDriver();
+        // initialisation in Icognito Mode
+        DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
+        desiredCapabilities.setBrowserName("Chrome");
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--incognito");
+        desiredCapabilities.setCapability(ChromeOptions.CAPABILITY, options);
+
+        WebDriver browser = new ChromeDriver(options);
+
         WebDriverWait wait = new WebDriverWait(browser, Duration.ofMillis(1000));
         browser.manage().window().maximize();
         String url = "http://store.steampowered.com/";
