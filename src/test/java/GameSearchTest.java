@@ -43,8 +43,9 @@ public class GameSearchTest {
         homePage.clickOnSearchButton();
 
         SearchPage searchPage = new SearchPage(browser);
-        String result = searchPage.getSearchResult();
+        String result = searchPage.getSearchResultKeyword();
         Assert.assertEquals(result, keyword, "The text on the search bar is not the same with the given keyword");
+
         String title = searchPage.getName();
         System.out.println(title);
 
@@ -54,8 +55,13 @@ public class GameSearchTest {
             System.out.println(platform);
         }
 
-        //searchPage.getReleaseDate();
-        //searchPage.getSummaryResult();
-        //searchPage.getprice();
+        String releaseDate = searchPage.getReleaseDate();
+        System.out.println(releaseDate);
+
+        String review = searchPage.getSummaryResult();
+        System.out.println(review);
+
+        String price = searchPage.getPrice();
+        //System.out.println(price);
     }
 }
