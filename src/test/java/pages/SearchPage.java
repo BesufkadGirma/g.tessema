@@ -20,16 +20,15 @@ public class SearchPage extends BasePage{
     }
 
     public List<WebElement> getSearchItems(){
-        List<WebElement> searchItem = browser.findElements(By.id("search_resultsRows"));
+        //WebElement searchItemContainer = browser.findElement(By.id("search_resultsRows"));
+        List<WebElement> searchItem = browser.findElements(By.cssSelector(".search_result_row"));
         return  searchItem;
     }
-    public String getName() {
+    public String getName(int itemRow) {
        List<WebElement> searchItem = getSearchItems();
-       String title = searchItem.get(0).findElement(By.xpath("//span[@class = 'title']")).getText();
+       String title = searchItem.get(itemRow).findElement(By.xpath("//span[@class = 'title']")).getText();
        return title;
-
     }
-
     public String getPlatforms() {
         List<WebElement> searchItem = getSearchItems();
          String platforms = "";
@@ -42,7 +41,6 @@ public class SearchPage extends BasePage{
         if(isMacSupported(searchItem)){
             platforms+= "Mac";
         }
-
         return platforms;
     }
     public boolean isWindowsSupported(List<WebElement> searchItem) {
@@ -82,39 +80,17 @@ public class SearchPage extends BasePage{
 
     public String getPrice() {
         List<WebElement> searchItem = getSearchItems();
-        WebElement price = searchItem.get(0).findElement(By.xpath("//div[contains(@class, 'search_release')]"));
+        WebElement price = searchItem.get(0).findElement(By.xpath("//div[contains(@class, 'search_price')]"));
         String gamePrice = price.getText();
         return gamePrice;
     }
 
-    public String getSummaryResult() {
+    public String[] getSummaryResult(int itemRow) {
         List<WebElement> searchItem = getSearchItems();
-        String review = "";
+        WebElement review = searchItem.get(itemRow).findElement(By.cssSelector(".search_review_summary"));
+        String reviewText = review.getAttribute("data-tooltip-html");
 
-        if(isPositiveReview(searchItem)){
-            review = "Positive";
-        }
-        if(isNegativeReview(searchItem)){
-            review = "Negative";
-        }
-        return review;
+        return reviewText.split("<br>");
     }
-    public boolean isPositiveReview(List<WebElement> searchItem){
-        List<WebElement> review = searchItem.get(0).findElements(By.xpath("//span[contains(@class, 'search_review_summary') and contains(@class, 'positive')]"));
-        boolean isPositive = false;
-        if (!review.isEmpty()) {
-            isPositive = true;
-        }
-        return isPositive;
 
-    }
-    public boolean isNegativeReview(List<WebElement> searchItem){
-        List<WebElement> review = searchItem.get(0).findElements(By.xpath("//span[contains(@class, 'search_review_summary') and contains(@class, 'negative')]"));
-        boolean isNegative = false;
-        if (!review.isEmpty()) {
-            isNegative = true;
-        }
-        return isNegative;
-
-    }
 }
