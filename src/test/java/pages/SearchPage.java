@@ -1,10 +1,14 @@
 package pages;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 
 public class SearchPage extends BasePage{
@@ -85,12 +89,40 @@ public class SearchPage extends BasePage{
         return gamePrice;
     }
 
-    public String[] getSummaryResult(int itemRow) {
+    public String getSummaryResult(int itemRow) {
         List<WebElement> searchItem = getSearchItems();
         WebElement review = searchItem.get(itemRow).findElement(By.cssSelector(".search_review_summary"));
-        String reviewText = review.getAttribute("data-tooltip-html");
+        String reviewText[] = review.getAttribute("data-tooltip-html").split("<br>");
+        return reviewText[0];
+    }
+    public void getJsonOutput(String title, String platforms[], String releaseDate, String review, String price) {
+        JSONObject gameDetails = new JSONObject();
 
-        return reviewText.split("<br>");
+        gameDetails.put("title", title);
+        JSONArray arrayPlatforms = new JSONArray();
+        for(int i = 0; i < platforms.length; i++) {
+            arrayPlatforms.add(platforms[i]);
+        }
+        gameDetails.put("platforms", arrayPlatforms);
+        gameDetails.put("release date", releaseDate);
+        gameDetails.put("review", review);
+        gameDetails.put("price", price);
+
+        JSONObject gameObject = new JSONObject();
+        gameObject.put("game", gameDetails);
+
+        JSONArray gameList = new JSONArray();
+        gameList.add(gameObject);
+
+        //Write JSON file
+        try (FileWriter file = new FileWriter("games.json")) {
+            //We can write any JSONArray or JSONObject instance to the file
+            file.write(gameList.toJSONString());
+            file.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
 }

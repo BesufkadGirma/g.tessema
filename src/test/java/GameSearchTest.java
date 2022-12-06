@@ -1,3 +1,5 @@
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -5,18 +7,19 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import org.testng.asserts.Assertion;
+import pages.BasePage;
 import pages.HomePage;
 import pages.SearchPage;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.Duration;
-import java.util.List;
 
 @Test
 public class GameSearchTest {
 
     public void gameSearchTest() {
-        // initialisation and Icognito Mode
+        // initialisation
 
         DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
         desiredCapabilities.setBrowserName("Chrome");
@@ -29,9 +32,7 @@ public class GameSearchTest {
 
         browser.manage().window().maximize();
         String url = "http://store.steampowered.com/";
-        String language = "Español - España (Spanish - Spain)";
         String keyword = "Dota 2";
-
 
         //Working on Home page
         HomePage homePage = new HomePage(browser);
@@ -47,27 +48,21 @@ public class GameSearchTest {
         Assert.assertEquals(result, keyword, "The text on the search bar is not the same with the given keyword");
 
         String title = searchPage.getName(0);
-        System.out.println(title);
 
         String[] platforms = searchPage.getPlatforms().split(" ");
 
-        for(String platform : platforms) {
-            System.out.println(platform);
-        }
-
         String releaseDate = searchPage.getReleaseDate();
-        System.out.println(releaseDate);
 
-        String review[] = searchPage.getSummaryResult(0);
-        System.out.println(review[0]);
+        String review = searchPage.getSummaryResult(0);
 
         String price = searchPage.getPrice();
-        System.out.println(price);
+        BasePage basePage;
+        searchPage.getJsonOutput(title, platforms, releaseDate, review, price);
 
-        title = searchPage.getName(1);
-        System.out.println(title);
+        //title = searchPage.getName(1);
+        //System.out.println(title);
 
-        homePage.setSearchKeyWord(title);
-        homePage.clickOnSearchButton();
+        //homePage.setSearchKeyWord(title);
+       // homePage.clickOnSearchButton();
     }
 }
